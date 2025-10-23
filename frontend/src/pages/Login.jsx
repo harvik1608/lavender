@@ -69,21 +69,23 @@ function Login() {
 							<p className="mb-6">Please sign-in to your account and start the adventure</p>
 							<form id="formAuthentication" className="mb-6" onSubmit={handleSubmit} method="POST">
 								<div className="mb-6">
-									<label for="email" className="form-label">Email</label>
-									<input type="text" className="form-control" id="email" name="email" placeholder="Enter your email" autofocus />
+									<label htmlFor="email" className="form-label">Email</label>
+									<input type="text" className="form-control" id="email" name="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
+									{errors.email && <small className="text-danger">{errors.email}</small>}
 								</div>
 								<div className="mb-6 form-password-toggle">
-									<label className="form-label" for="password">Password</label>
+									<label className="form-label" htmlFor="password">Password</label>
 									<div className="input-group input-group-merge">
-										<input type="password" id="password" className="form-control" name="password" placeholder="Enter your password" aria-describedby="password" />
+										<input type="password" id="password" className="form-control" name="password" placeholder="Enter your password" aria-describedby="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 										<span className="input-group-text cursor-pointer"><i className="bx bx-hide"></i></span>
 									</div>
+									{errors.password && <small className="text-danger">{errors.password}</small>}
 								</div>
 								<div className="mb-8">
 									<div className="d-flex justify-content-between mt-8">
 										<div className="form-check mb-0 ms-2">
 											<input className="form-check-input" type="checkbox" id="remember-me" />
-											<label className="form-check-label" for="remember-me">Remember Me</label>
+											<label className="form-check-label" htmlFor="remember-me">Remember Me</label>
 										</div>
 										<a href="auth-forgot-password-basic.html"><span>Forgot Password?</span></a>
 									</div>

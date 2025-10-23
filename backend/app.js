@@ -1,10 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const cors = require('cors');
 const User = require('./models/User');
+
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -15,19 +19,24 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch(err => console.log('MongoDB connection error:', err));
 
 // API: Check if user exists by email
-app.get('/api/check-user', async (req, res) => {
-    // const email = req.query.email;
-    // if(!email) return res.status(400).json({ error: 'Email is required' });
+app.post('/api/check-user', async (req, res) => {
+    // const passwordHash = await bcrypt.hash('lavenderlook@123', 10); // hash password
+
+    const { email, password } = req.body;
+    if(!email) return res.status(400).json({ error: 'Email is required' });
 
     try {
-        const users = await User.find();
-        res.json({ exists: users.length > 0, user: users });
-        // const user = await User.find();
-        // if(user) {
-        //     res.json({ exists: true, user });
-        // } else {
-        //     res.json({ exists: false });
-        // }
+        const admin = await User.findOne({ email: email });
+        if(!admin) {
+            return res.json({ success: false, message: "Email not found" });
+        }
+
+        const isMatch = await bcrypt.compare(password, admin.password);
+        if (!isMatch) {
+            return res.json({ success: false, message: "Password does not match." });
+        }
+
+        return res.json({success: true, admin });
     } catch(err) {
         res.status(500).json({ error: err.message });
     }
