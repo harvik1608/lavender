@@ -5,42 +5,42 @@ body, .butterpop-message, h1.title,#loading-area .load-text .text-load {
 	font-style: normal;
 }
 .form-control:focus {
-	border-color: #77488a !important;
+	border-color: #326b87 !important;
 }
 .btn-primary {
-	background-color: #77488a !important;
-	border: 1px solid #77488a;
+	background-color: #326b87 !important;
+	border: 1px solid #326b87;
 	color: #000 !important;
 }
 .btn-primary:hover {
-	background-color: #77488a !important;
-	border: 1px solid #77488a !important;
+	background-color: #326b87 !important;
+	border: 1px solid #326b87 !important;
 	color: #000 !important;
 }
 .sales-cards .card h6,.sidebar .sidebar-menu > ul > li.submenu-open ul > li.active a span,.sidebar .sidebar-menu > ul li.active svg {
-	color: #77488a !important;
+	color: #326b87 !important;
 }
 .sidebar .sidebar-logo #toggle_btn,.swiper-pagination.style-1 .swiper-pagination-bullet-active {
-	background: #77488a !important;
+	background: #326b87 !important;
 }
 .page-wraper,.bg-primary {
-	background-color: #77488a !important;
+	background-color: #326b87 !important;
 }
 .mandadory {
     color: #FF0000;
 }
 .btn.btn-primary {
-	background-color: #77488a !important;
-    border: 1px solid #77488a !important;
+	background-color: #326b87 !important;
+    border: 1px solid #326b87 !important;
     color: #FFFFFF !important;
 }
 .btn.btn-primary:hover {
-	background-color: #77488a !important;
-    border: 1px solid #77488a !important;
+	background-color: #326b87 !important;
+    border: 1px solid #326b87 !important;
 }
 .dataTables_paginate .pagination li.active a.page-link {
-	background: #77488a;
-    border-color: #77488a;
+	background: #326b87;
+    border-color: #326b87;
 }
 .country-flag {
 	border-radius: 100%;
@@ -50,12 +50,12 @@ label[id$="-error"] {
 	display: none;
 }
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-	background: #77488a;
+	background: #326b87;
 }
 a {
-	color: #77488a;
+	color: #326b87;
 }
 .form-check-input:checked {
-	background-color: #77488a;
-    border-color: #77488a;
+	background-color: #326b87;
+    border-color: #326b87;
 }

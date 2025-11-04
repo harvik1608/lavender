@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const crypto = require("crypto");
 const cors = require('cors');
 const User = require('./models/User');
 
@@ -11,12 +12,12 @@ app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log('MongoDB connection error:', err));
+// mongoose.connect(process.env.MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// })
+// .then(() => console.log('MongoDB connected'))
+// .catch(err => console.log('MongoDB connection error:', err));
 
 // API: Check if user exists by email
 app.post('/api/check-user', async (req, res) => {
@@ -30,9 +31,8 @@ app.post('/api/check-user', async (req, res) => {
         if(!admin) {
             return res.json({ success: false, message: "Email not found" });
         }
-
-        const isMatch = await bcrypt.compare(password, admin.password);
-        if (!isMatch) {
+        const md5Password = crypto.createHash("md5").update(password).digest("hex");
+        if (md5Password !== admin.password) {
             return res.json({ success: false, message: "Password does not match." });
         }
 
