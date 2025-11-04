@@ -25,28 +25,28 @@ function Sidebar() {
                 <div className="menu-inner-shadow"></div>
                 <ul className="menu-inner py-1" id="main-menu">
                     <li className="menu-item">
-                        <a href="/dashboard" className="menu-link">
+                        <Link to="/dashboard" className="menu-link">
                             <i className="menu-icon tf-icons bx bx-crown"></i>
                             <div className="text-truncate" data-i18n="Boxicons">Dashboard</div>
-                        </a>
+                        </Link>
                     </li>
                     <li className="menu-item">
-                        <a href="/services" className="menu-link">
+                        <Link to="/fishes" className="menu-link">
                             <i className="menu-icon tf-icons bx bx-crown"></i>
-                            <div className="text-truncate" data-i18n="Boxicons">Services</div>
-                        </a>
+                            <div className="text-truncate" data-i18n="Boxicons">Fishes</div>
+                        </Link>
                     </li>
                     <li className="menu-item">
-                        <a href="/services" className="menu-link">
+                        <Link to="/vendors" className="menu-link">
                             <i className="menu-icon tf-icons bx bx-crown"></i>
-                            <div className="text-truncate" data-i18n="Boxicons">Portfolio</div>
-                        </a>
+                            <div className="text-truncate" data-i18n="Boxicons">Vendors</div>
+                        </Link>
                     </li>
                     <li className="menu-item">
-                        <a href="/services" className="menu-link">
+                        <Link to="/customers" className="menu-link">
                             <i className="menu-icon tf-icons bx bx-crown"></i>
-                            <div className="text-truncate" data-i18n="Boxicons">Photos</div>
-                        </a>
+                            <div className="text-truncate" data-i18n="Boxicons">Customers</div>
+                        </Link>
                     </li>
                 </ul>
             </aside>   		

@@ -18,10 +18,12 @@ const User = sequelize.define("User", {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    createdAt: 'created_at', // 👈 map to your DB column
+    updatedAt: 'updated_at'
   }
 }, {
-  tableName: "admin",   // your MySQL table name
+  tableName: "users",   // your MySQL table name
   timestamps: true       // adds createdAt and updatedAt
 });
 

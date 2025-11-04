@@ -8,6 +8,11 @@ import "../assets/auth/vendor/libs/perfect-scrollbar/perfect-scrollbar.css";
 import "../assets/auth/vendor/css/pages/page-auth.css";
 import "../assets/auth/css/custom.css";
 import "../assets/auth/css/butterpop.css";
+import "../assets/auth/css/datatables.bootstrap5.css";
+import "../assets/auth/css/responsive.bootstrap5.css";
+import "../assets/auth/css/datatables.checkboxes.css";
+import "../assets/auth/css/buttons.bootstrap5.css";
+import "../assets/auth/css/rowgroup.bootstrap5.css";
 
 function Header() {
 	return (

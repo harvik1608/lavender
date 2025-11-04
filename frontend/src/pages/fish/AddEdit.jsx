@@ -1,0 +1,101 @@
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
+import Footer from "../../components/Footer";
+
+function FishAddEdit() {
+	const navigate = useNavigate();
+	const [formData, setFormData] = useState({
+		name: "",
+		is_active: "1"
+	});
+	const [loading, setLoading] = useState(false);
+	const [message, setMessage] = useState("");
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({
+			...prev,
+			[name]: value,
+		}));
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setMessage("");
+		if (!formData.name.trim()) {
+			setMessage("⚠️ Name is required");
+			return;
+		}
+		setLoading(true);
+		try {
+			const res = await fetch("http://localhost:3000/api/add-fish", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(formData),
+			});
+			const data = await res.json();
+			if (data.success) {
+				setMessage(data.message);
+				setTimeout(() => navigate("/fishes"), 1000);
+			} else {
+				setMessage(data.error || "❌ Failed to add fish");
+			}
+		} catch (error) {
+			console.error("Error:", error);
+  			setMessage("❌ Server error, please try again");
+		} finally {
+			setLoading(false);
+		}
+	};
+	return (
+		<>
+			<div className="layout-wrapper layout-content-navbar">
+                <div className="layout-container">
+                	<Sidebar />
+                	<div className="layout-page">
+                		<Header />
+						<div className="content-wrapper">
+							<div className="container-xxl flex-grow-1 container-p-y">
+								<div className="row">
+									<div className="col-xl">
+										<div className="card mb-12">
+											<div className="card-header d-flex justify-content-between align-items-center">
+												<h5 className="mb-0">New Fish</h5>
+												<small className="text-body float-end">
+													(<small className='astrock'>*</small>) indicates required field.
+												</small>
+											</div>
+											<div className="card-body">
+												<form id="main-form" onSubmit={handleSubmit}>
+													<div className="row">
+														<div className="col-lg-12 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">Name<small className='astrock'>*</small></label>
+															<input type="text" className="form-control" id="name" name="name" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>							
+														<div className="col-lg-12 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">Status</label>
+															<select className="form-control" id="is_active" name="is_active" value={formData.is_active} onChange={handleChange}>
+																<option value="1">Active</option>
+																<option value="0">Inactive</option>
+															</select>
+														</div>
+													</div>
+													{message && (<div className="alert alert-info py-2">{message}</div>)}
+													<button type="submit" className="btn btn-primary btn-sm" disabled={loading}>{loading ? "Saving..." : "Submit"}</button>&nbsp;
+													<Link className="btn btn-danger btn-sm text-white" id="back-btn" to="/fishes">Back</Link>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	)
+}
+document.body.classList.remove("container-xxl");
+export default FishAddEdit

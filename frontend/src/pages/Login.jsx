@@ -63,7 +63,7 @@ function Login() {
 						<div className="card-body">
 							<div className="app-brand justify-content-center">
 								<a href="index-2.html" className="app-brand-link gap-2">
-									<span className="app-brand-text demo text-heading fw-bold">Lavender Look</span>
+									<span className="app-brand-text demo text-heading fw-bold">Niraj Purbiya</span>
 								</a>
 							</div>
 							<p className="mb-6">Please sign-in to your account and start the adventure</p>
