@@ -57,7 +57,7 @@ function FishAddEdit() {
 		}
 		setLoading(true);
 		try {
-			const url = id ? `http://localhost:3000/api/update-fish/${id}` : "http://localhost:3000/api/add-fish";
+			const url = id ? `http://localhost:3000/api/update-fish/${id}` : "http://localhost:3000/api/add-vendor";
 		  	const method = id ? "PUT" : "POST";
 			const res = await fetch(url, {
 				method,
@@ -91,7 +91,7 @@ function FishAddEdit() {
 									<div className="col-xl">
 										<div className="card mb-12">
 											<div className="card-header d-flex justify-content-between align-items-center">
-												<h5 className="mb-0">New Fish</h5>
+												<h5 className="mb-0">New Vendor</h5>
 												<small className="text-body float-end">
 													(<small className='astrock'>*</small>) indicates required field.
 												</small>
@@ -99,9 +99,37 @@ function FishAddEdit() {
 											<div className="card-body">
 												<form id="main-form" onSubmit={handleSubmit}>
 													<div className="row">
-														<div className="col-lg-12 mb-4">
+														<div className="col-lg-4 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Name<small className='astrock'>*</small></label>
 															<input type="text" className="form-control" id="name" name="name" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>
+														<div className="col-lg-4 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">Email</label>
+															<input type="text" className="form-control" id="email" name="email" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>
+														<div className="col-lg-4 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">Mobile No.<small className='astrock'>*</small></label>
+															<input type="text" className="form-control" id="phone" name="phone" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>
+														<div className="col-lg-4 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">Country<small className='astrock'>*</small></label>
+															<input type="text" className="form-control" id="country" name="country" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>
+														<div className="col-lg-4 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">State<small className='astrock'>*</small></label>
+															<input type="text" className="form-control" id="state" name="state" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>
+														<div className="col-lg-4 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">City</label>
+															<input type="text" className="form-control" id="city" name="city" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>
+														<div className="col-lg-8 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">Address</label>
+															<input type="text" className="form-control" id="address" name="address" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+														</div>
+														<div className="col-lg-4 mb-4">
+															<label className="form-label" htmlFor="basic-default-fullname">Password</label>
+															<input type="text" className="form-control" id="password" name="password" placeholder="Enter name" value={formData.name} onChange={handleChange} />
 														</div>							
 														<div className="col-lg-12 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Status</label>
@@ -113,7 +141,7 @@ function FishAddEdit() {
 													</div>
 													{message && (<div className="alert alert-info py-2">{message}</div>)}
 													<button type="submit" className="btn btn-primary btn-sm mt-2" disabled={loading}>{loading ? "Saving..." : "Submit"}</button>&nbsp;
-													<Link className="btn btn-danger btn-sm text-white mt-2" id="back-btn" to="/fishes">Back</Link>
+													<Link className="btn btn-danger btn-sm text-white mt-2" id="back-btn" to="/vendors">Back</Link>
 												</form>
 											</div>
 										</div>

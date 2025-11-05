@@ -103,5 +103,120 @@ app.post('/api/add-fish', async (req, res) => {
     }
 });
 
+// to get single fish
+app.get('/api/fish/:id', async (req, res) => {
+    const { id } = req.params;
+    if(!id) return res.status(400).json({ error: 'Fish Id is required' });
+
+    try {
+        const fish = await Fish.findOne({ where: { id: id } });
+        if(!fish) {
+            return res.json({ success: false, message: "Fish not found" });
+        }
+        return res.json({success: true, data: fish });
+    } catch(err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// to update fish
+app.put("/api/update-fish/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [updated] = await Fish.update(req.body, { where: { id: id } });
+    if (!updated)
+      return res.json({ success: false, message: "Fish not found or not updated" });
+    res.json({ success: true, message: "Fish updated successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// to delete fish
+app.delete('/api/delete-fish/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) return res.status(400).json({ success: false, message: 'Fish ID is required' });
+
+    const deleted = await Fish.destroy({ where: { id: id } });
+
+    if (!deleted) {
+      return res.json({ success: false, message: 'Fish not found or already deleted' });
+    }
+
+    res.json({ success: true, message: 'Fish deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Vendor's Route
+app.post('/api/load-vendors', async (req, res) => {
+    try {
+        // DataTables parameters
+        const draw = req.body.draw;
+        const start = parseInt(req.body.start) || 0;
+        const length = parseInt(req.body.length) || 10;
+        const searchValue = req.body.search?.value || "";
+
+        const where = {role: 2};
+
+        if (searchValue) {
+          where.name = { [Op.like]: `%${searchValue}%` };
+        }
+
+        const totalRecords = await User.count();
+        const filteredRecords = await User.count({ where });
+
+        const fishes = await User.findAll({
+          where,
+          offset: start,
+          limit: length,
+          order: [["id", "DESC"]]
+        });
+
+        res.json({
+          draw,
+          recordsTotal: totalRecords,
+          recordsFiltered: filteredRecords,
+          data: fishes
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+      }
+});
+
+app.post('/api/add-vendor', async (req, res) => {
+    const { name, email, phone, country, state, city, address, password, is_active } = req.body;
+    if(!name) return res.status(400).json({ error: 'Name is required' });
+
+
+    try {
+        const passwordHash = await bcrypt.hash(password, 10);
+        const newFish = await Fish.create({
+            name: name,
+            email: email,
+            phone: phone,
+            country: country,
+            state: state,
+            city: city,
+            address: address,
+            password: passwordHash,
+            is_active: is_active ? 1 : 0,
+            role: 2,
+            created_by: 1
+        });
+        return res.json({
+            success: true, 
+            message: "Vendor added successfully",
+        });
+    } catch(err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -16,12 +16,40 @@ const User = sequelize.define("User", {
     allowNull: false,
     unique: true
   },
+  phone: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  country: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  state: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  address: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  is_active: {
+    type: DataTypes.TINYINT,
+    allowNull: false
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
     createdAt: 'created_at', // 👈 map to your DB column
     updatedAt: 'updated_at'
-  }
+  },
+  role: {
+    type: DataTypes.TINYINT,
+    allowNull: false
+  },
 }, {
   tableName: "users",   // your MySQL table name
   timestamps: true       // adds createdAt and updatedAt

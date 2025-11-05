@@ -40,12 +40,13 @@ function FishList() {
 					processing: true,
 					serverSide: true,
 					ajax: {
-						url: "http://localhost:3000/api/load-fishes",
+						url: "http://localhost:3000/api/load-vendors",
 						type: "POST",
 					},
 					columns: [
 						{ data: "id" },
 						{ data: "name" },
+						{ data: "email" },
 						{
 							data: "is_active",
 							render: (data) => data === 1 ? '<span class="badge bg-label-primary">Active</span>' : '<span class="badge bg-label-danger">Inactive</span>',
@@ -107,8 +108,8 @@ function FishList() {
 							<div className="container-xxl flex-grow-1 container-p-y">
 								<div className="card">
 									<h5 className="card-header">
-										Fishes 
-										<Link to="/fishes/new" className="btn btn-primary btn-sm text-white newbtn">New Fish</Link>
+										Vendors 
+										<Link to="/vendors/new" className="btn btn-primary btn-sm text-white newbtn">New Vendor</Link>
 									</h5>
 									<div className="container">
 										<div className="table-responsive">
@@ -116,7 +117,9 @@ function FishList() {
 												<thead>
 													<tr>
 														<th width="5%">#</th>
-														<th width="70%">Fish Name</th>
+														<th width="70%">Name</th>
+														<th width="70%">Email</th>
+														<th width="70%">Mobile No.</th>
 														<th width="10%">Status</th>
 														<th width="15%">Action</th>
 													</tr>
