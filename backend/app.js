@@ -167,7 +167,7 @@ app.post('/api/load-vendors', async (req, res) => {
           where.name = { [Op.like]: `%${searchValue}%` };
         }
 
-        const totalRecords = await User.count();
+        const totalRecords = await User.count({ where });
         const filteredRecords = await User.count({ where });
 
         const fishes = await User.findAll({
@@ -193,10 +193,13 @@ app.post('/api/add-vendor', async (req, res) => {
     const { name, email, phone, country, state, city, address, password, is_active } = req.body;
     if(!name) return res.status(400).json({ error: 'Name is required' });
 
-
     try {
+        const vendor = await User.findOne({ where: { phone } });
+        if(vendor) {
+           return res.status(400).json({ error: 'Mobile no. is already added.' });
+        }
         const passwordHash = await bcrypt.hash(password, 10);
-        const newFish = await Fish.create({
+        const newFish = await User.create({
             name: name,
             email: email,
             phone: phone,

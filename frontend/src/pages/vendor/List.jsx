@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { format } from 'date-fns';
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
@@ -47,6 +48,14 @@ function FishList() {
 						{ data: "id" },
 						{ data: "name" },
 						{ data: "email" },
+						{ data: "phone" },
+						{ 
+							data: "createdAt",
+							render: function (data) {
+								const formattedDate = format(new Date(data), 'MMM dd, yyyy');
+								return formattedDate;
+							}
+						},
 						{
 							data: "is_active",
 							render: (data) => data === 1 ? '<span class="badge bg-label-primary">Active</span>' : '<span class="badge bg-label-danger">Inactive</span>',
@@ -117,9 +126,10 @@ function FishList() {
 												<thead>
 													<tr>
 														<th width="5%">#</th>
-														<th width="70%">Name</th>
-														<th width="70%">Email</th>
-														<th width="70%">Mobile No.</th>
+														<th width="15%">Name</th>
+														<th width="15%">Email</th>
+														<th width="10%">Mobile No.</th>
+														<th width="15%">Added On</th>
 														<th width="10%">Status</th>
 														<th width="15%">Action</th>
 													</tr>

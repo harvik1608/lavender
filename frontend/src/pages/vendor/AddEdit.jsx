@@ -9,6 +9,11 @@ function FishAddEdit() {
 	const { id } = useParams();
 	const [formData, setFormData] = useState({
 		name: "",
+		phone: "",
+		country: "",
+		state: "",
+		city: "",
+		password: "",
 		is_active: "1"
 	});
 	const [loading, setLoading] = useState(false);
@@ -55,6 +60,26 @@ function FishAddEdit() {
 			setMessage("⚠️ Name is required");
 			return;
 		}
+		if (!formData.phone.trim()) {
+			setMessage("⚠️ Mobile no. is required");
+			return;
+		}
+		if (!formData.country.trim()) {
+			setMessage("⚠️ Country is required");
+			return;
+		}
+		if (!formData.state.trim()) {
+			setMessage("⚠️ State is required");
+			return;
+		}
+		if (!formData.city.trim()) {
+			setMessage("⚠️ City is required");
+			return;
+		}
+		if (!formData.password.trim()) {
+			setMessage("⚠️ Password is required");
+			return;
+		}
 		setLoading(true);
 		try {
 			const url = id ? `http://localhost:3000/api/update-fish/${id}` : "http://localhost:3000/api/add-vendor";
@@ -67,7 +92,7 @@ function FishAddEdit() {
 			const data = await res.json();
 			if (data.success) {
 				setMessage(data.message);
-				setTimeout(() => navigate("/fishes"), 1000);
+				setTimeout(() => navigate("/vendors"), 1000);
 			} else {
 				setMessage(data.error || "❌ Failed to add fish");
 			}
@@ -105,31 +130,31 @@ function FishAddEdit() {
 														</div>
 														<div className="col-lg-4 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Email</label>
-															<input type="text" className="form-control" id="email" name="email" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+															<input type="text" className="form-control" id="email" name="email" placeholder="Enter email" value={formData.email} onChange={handleChange} />
 														</div>
 														<div className="col-lg-4 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Mobile No.<small className='astrock'>*</small></label>
-															<input type="text" className="form-control" id="phone" name="phone" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+															<input type="text" className="form-control" id="phone" name="phone" placeholder="Enter mobile no." value={formData.phone} onChange={handleChange} />
 														</div>
 														<div className="col-lg-4 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Country<small className='astrock'>*</small></label>
-															<input type="text" className="form-control" id="country" name="country" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+															<input type="text" className="form-control" id="country" name="country" placeholder="Enter country" value={formData.country} onChange={handleChange} />
 														</div>
 														<div className="col-lg-4 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">State<small className='astrock'>*</small></label>
-															<input type="text" className="form-control" id="state" name="state" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+															<input type="text" className="form-control" id="state" name="state" placeholder="Enter state" value={formData.state} onChange={handleChange} />
 														</div>
 														<div className="col-lg-4 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">City</label>
-															<input type="text" className="form-control" id="city" name="city" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+															<input type="text" className="form-control" id="city" name="city" placeholder="Enter city" value={formData.city} onChange={handleChange} />
 														</div>
 														<div className="col-lg-8 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Address</label>
-															<input type="text" className="form-control" id="address" name="address" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+															<input type="text" className="form-control" id="address" name="address" placeholder="Enter address" value={formData.address} onChange={handleChange} />
 														</div>
 														<div className="col-lg-4 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Password</label>
-															<input type="text" className="form-control" id="password" name="password" placeholder="Enter name" value={formData.name} onChange={handleChange} />
+															<input type="text" className="form-control" id="password" name="password" placeholder="Enter password" value={formData.password} onChange={handleChange} />
 														</div>							
 														<div className="col-lg-12 mb-4">
 															<label className="form-label" htmlFor="basic-default-fullname">Status</label>
@@ -139,7 +164,7 @@ function FishAddEdit() {
 															</select>
 														</div>
 													</div>
-													{message && (<div className="alert alert-info py-2">{message}</div>)}
+													{message && (<div className="alert alert-danger py-2"><b>{message}</b></div>)}
 													<button type="submit" className="btn btn-primary btn-sm mt-2" disabled={loading}>{loading ? "Saving..." : "Submit"}</button>&nbsp;
 													<Link className="btn btn-danger btn-sm text-white mt-2" id="back-btn" to="/vendors">Back</Link>
 												</form>
