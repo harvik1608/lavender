@@ -16,7 +16,7 @@ function Sidebar() {
                 <div className="app-brand demo ">
                     <a href="index-2.html" className="app-brand-link">
                         <span className="app-brand-logo demo"></span>
-                        <span className="app-brand-text demo menu-text fw-bold ms-2">Lavender Look</span>
+                        <span className="app-brand-text demo menu-text fw-bold ms-2">Niraj Purabiya</span>
                     </a>
                     <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
                         <i className="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>

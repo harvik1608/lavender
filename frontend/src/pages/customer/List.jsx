@@ -44,7 +44,7 @@ function FishList() {
 						url: "http://localhost:3000/api/load-vendors",
 						type: "POST",
 						data: function(d) {
-							d.role = 2;
+							d.role = 3;
 						}
 					},
 					columns: [
@@ -120,8 +120,8 @@ function FishList() {
 							<div className="container-xxl flex-grow-1 container-p-y">
 								<div className="card">
 									<h5 className="card-header">
-										Vendors 
-										<Link to="/vendors/new" className="btn btn-primary btn-sm text-white newbtn">New Vendor</Link>
+										Customers 
+										<Link to="/customers/new" className="btn btn-primary btn-sm text-white newbtn">New Customer</Link>
 									</h5>
 									<div className="container">
 										<div className="table-responsive">

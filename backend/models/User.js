@@ -52,7 +52,9 @@ const User = sequelize.define("User", {
   },
 }, {
   tableName: "users",   // your MySQL table name
-  timestamps: true       // adds createdAt and updatedAt
+  timestamps: true,
+  paranoid: true,
+  deletedAt: "deletedAt"
 });
 
 module.exports = User;

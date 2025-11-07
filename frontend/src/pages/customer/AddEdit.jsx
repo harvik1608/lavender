@@ -17,7 +17,7 @@ function FishAddEdit() {
 		address: "",
 		password: "",
 		is_active: "1",
-		role: 2
+		role: 3
 	});
 	const [loading, setLoading] = useState(false);
 	const [message, setMessage] = useState("");
@@ -40,14 +40,14 @@ function FishAddEdit() {
 							city: responseData.data.city,
 							address: responseData.data.address,
 							is_active: responseData.data.is_active.toString(),
-							role: 2
+							role: 3
 						});
 					} else {
-						setMessage("⚠️ Fish not found");
+						setMessage("⚠️ Customer not found");
 					}
 				} catch (err) {
 					console.error(err);
-					setMessage("❌ Failed to load fish details");
+					setMessage("❌ Failed to load customer details");
 				} finally {
 					setLoading(false);
 				}
@@ -126,7 +126,7 @@ function FishAddEdit() {
 									<div className="col-xl">
 										<div className="card mb-12">
 											<div className="card-header d-flex justify-content-between align-items-center">
-												<h5 className="mb-0">New Vendor</h5>
+												<h5 className="mb-0">New Customer</h5>
 												<small className="text-body float-end">
 													(<small className='astrock'>*</small>) indicates required field.
 												</small>

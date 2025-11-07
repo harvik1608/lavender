@@ -161,7 +161,7 @@ app.post('/api/load-vendors', async (req, res) => {
         const length = parseInt(req.body.length) || 10;
         const searchValue = req.body.search?.value || "";
 
-        const where = {role: 2};
+        const where = {role: req.body.role};
 
         if (searchValue) {
           where.name = { [Op.like]: `%${searchValue}%` };
@@ -190,7 +190,7 @@ app.post('/api/load-vendors', async (req, res) => {
 });
 
 app.post('/api/add-vendor', async (req, res) => {
-    const { name, email, phone, country, state, city, address, password, is_active } = req.body;
+    const { name, email, phone, country, state, city, address, password, is_active,role } = req.body;
     if(!name) return res.status(400).json({ error: 'Name is required' });
 
     try {
@@ -209,7 +209,7 @@ app.post('/api/add-vendor', async (req, res) => {
             address: address,
             password: passwordHash,
             is_active: is_active ? 1 : 0,
-            role: 2,
+            role: role,
             created_by: 1
         });
         return res.json({
@@ -219,6 +219,59 @@ app.post('/api/add-vendor', async (req, res) => {
     } catch(err) {
         res.status(500).json({ error: err.message });
     }
+});
+
+app.get('/api/vendor/:id', async (req, res) => {
+    const { id } = req.params;
+    if(!id) return res.status(400).json({ error: 'Vendor Id is required' });
+
+    try {
+        const vendor = await User.findOne({ where: { id: id } });
+        if(!vendor) {
+            return res.json({ success: false, message: "Vendor not found" });
+        }
+        return res.json({success: true, data: vendor });
+    } catch(err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.put("/api/update-vendor/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password, ...updateData } = req.body;
+
+    if (password && password.trim() !== '') {
+      updateData.password = await bcrypt.hash(password, 10);
+    }
+
+    const [updated] = await User.update(updateData, { where: { id: id } });
+    if (!updated)
+      return res.json({ success: false, message: "Vendor not found or not updated" });
+
+    res.json({ success: true, message: "User updated successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.delete('/api/delete-vendor/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) return res.status(400).json({ success: false, message: 'Vendor ID is required' });
+
+    const deleted = await User.destroy({ where: { id: id } });
+
+    if (!deleted) {
+      return res.json({ success: false, message: 'Vendor not found or already deleted' });
+    }
+
+    res.json({ success: true, message: 'Vendor deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
